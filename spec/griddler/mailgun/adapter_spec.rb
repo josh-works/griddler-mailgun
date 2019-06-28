@@ -182,7 +182,6 @@ describe Griddler::Mailgun::Adapter, '.normalize_params' do
         "To"=>"John Doe <johndoe@example.com>, Jane Doe <janedoe@example.com>",
         "body-html"=>"<div dir=\"ltr\">And attachments. Two of them. An image and a text file.</div>\r\n",
         "body-plain"=>"And attachments. Two of them. An image and a text file.\r\n",
-        "from"=>"Jon Snow <jon@example.com>",
         "recipient"=>"johndoe@example.com",
         "sender"=>"jon@example.com",
         "stripped-html"=>"<div dir=\"ltr\">And attachments. Two of them. An image and a text file.</div>\r\n",

@@ -45,38 +45,6 @@ Action:
 forward("http://example.com/email_processor")
 ```
 
-#### Notes on testing
-
-If you want to test the functionality of the route, via `rspec` or `minitest` or in Postman, please note that the `to`, `from`, `bcc` and `cc` params you post _must_ be capitalized:
-
-This would _not_ work:
-
-```json
-{
-	"recipient": "recipient@domain.com",
-	"from": "this wont work <whywontyouwork@working.foo>",
-	"to": "to@domain.com",
-	"subject": "griddler-mailgun",
-	"body-plain": "This is some text body",
-	"body-html": "Supports <em>HTML</em> as well."
-}
-```
-
-On the other hand, this would:
-
-```json
-{
-	"recipient": "recipient@domain.com",
-	"From": "this wont work <whywontyouwork@working.foo>",
-	"To": "to@domain.com",
-	"subject": "griddler-mailgun",
-	"body-plain": "This is some text body",
-	"body-html": "Supports <em>HTML</em> as well."
-}
-```
-You can explore the expected fields and capitalizations in the [`Griddler::Mailgun::Adapter#normalize_params`](https://github.com/bradpauly/griddler-mailgun/blob/master/lib/griddler/mailgun/adapter.rb#L15) method. 
-
-
 ## More Information
 
 * [mailgun](http://www.mailgun.com)
