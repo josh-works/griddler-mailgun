@@ -45,7 +45,7 @@ module Griddler
       end
 
       def cc_recipients
-        cc = param_or_header(:cc) || ''
+        cc = param_or_header(:cc) || ""
         cc.split(',').map(&:strip)
       end
 
