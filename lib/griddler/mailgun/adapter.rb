@@ -4,7 +4,7 @@ module Griddler
       attr_reader :params
 
       def initialize(params)
-        @params = params
+        @params = params.transform_keys(&:downcase)
       end
 
       def self.normalize_params(params)
@@ -16,7 +16,7 @@ module Griddler
         {
           to: to_recipients,
           cc: cc_recipients,
-          bcc: Array.wrap(param_or_header(:Bcc)),
+          bcc: Array.wrap(param_or_header(:bcc)),
           from: determine_sender,
           subject: params[:subject],
           text: params['body-plain'],
@@ -34,23 +34,23 @@ module Griddler
     private
 
       def determine_sender
-        sender = param_or_header(:From)
+        sender = param_or_header(:from)
         sender ||= params[:sender]
       end
 
       def to_recipients
-        to_emails = param_or_header(:To)
+        to_emails = param_or_header(:to)
         to_emails ||= params[:recipient]
         to_emails.split(',').map(&:strip)
       end
 
       def cc_recipients
-        cc = param_or_header(:Cc) || ''
+        cc = param_or_header(:cc) || ''
         cc.split(',').map(&:strip)
       end
 
       def headers
-        @headers ||= extract_headers
+        @headers ||= extract_headers.transform_keys(&:downcase)
       end
 
       def extract_headers
