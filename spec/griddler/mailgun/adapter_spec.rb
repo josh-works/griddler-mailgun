@@ -77,6 +77,17 @@ describe Griddler::Mailgun::Adapter, '.normalize_params' do
     normalized_params = Griddler::Mailgun::Adapter.normalize_params(short_params)
     expect(normalized_params[:to]).to eq ['johndoe@example.com']
   end
+  
+  it 'handles downcased params' do
+    downcased_params = {
+      cc: "Brandon Stark <brandon@example.com>, Arya Stark <arya@example.com>",
+      from: "Jon Snow <jon@example.com>",
+      subject: "multiple recipients and CCs",
+      to: "John Doe <johndoe@example.com>, Jane Doe <janedoe@example.com>"
+    }
+    Griddler::Mailgun::Adapter.normalize_params(downcased_params)
+    expect(normalized_params[:to].to eq['johndoe@example.com'])
+  end
 
   it 'handles message-headers' do
     params = default_params.merge(
